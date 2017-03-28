@@ -1,3 +1,53 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+	<div class="page-header">
+		<h1> Uers</h1>	
+	</div>
+
+	<form class="form-inline" #userForm = "ngForm" (ngSubmit) = "userFormSubmitHandler(userForm.value)">
+		<div class="form-group">
+		    <input class="form-control" type="text" placeholder="name" name="name" [(ngModel)]= "user.name"/>
+	  	</div>
+	  	<div class="form-group">
+		    <input class="form-control" type="email" placeholder="Email" name="email" [ngModel] = "user.email"/>
+	  	</div>
+	  	<div class="checkbox">
+		    <input class="form-control" type="text" placeholder="age" name="age" [ngModel] = "user.age"/>
+	  	</div>
+
+	  	<button class="btn btn-primary" type="submit">Add</button>
+	</form>
+
+	<div class="">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>SNO</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Age</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let user of users">
+					<td>{{ user.id }}</td>
+					<td>{{ user.name }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.age }}</td>
+					<td>
+						<button class="btn btn-primary" (click) = "editUser(user)">Edit</button>
+						<button class="btn btn-info" (click) = "showDetails(user)"> Show</button>
+						<button class="btn btn-danger" (click) = "delete(user)">delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="" *ngIf="user">
+		<div class="">Name: {{ user.name }}</div>
+		<div class="">Email: {{ user.email }}</div>
+		<div class="">Age: {{ user.age }}</div>
+	</div>
+
+</div>
