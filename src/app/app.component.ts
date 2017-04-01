@@ -13,23 +13,25 @@ export class AppComponent {
     user = {};
 
     users = [];
+    families = [];
+
     constructor(_patientService: PatientService){
-        this.users = _patientService.listPatients();
-    };
+        _patientService.getUserDetails().subscribe(resData => this.users = resData);
+    }
 
     // Edit user details
     editUser(userData) {
         this.user = userData;
-    };
+    }
 
     // Show details
     showDetails(userData){
         this.user = userData;
-    };
+    }
 
     // Submit and get user data
     userFormSubmitHandler(user: any) {
         user.id = this.users.length + 1;
         this.users.push(user);
-    };
+    }
 }

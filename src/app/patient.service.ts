@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
+import {Http, Response } from '@angular/http';
+
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PatientService {
+
+  private _url: string = 'apiData/employees.json';
+  constructor(private _http: Http){}
+
+  getUserDetails(){
+    return this._http.get(this._url).map((res:Response) => res.json());
+  }
+
   listPatients(){
     return [
       {"id":1,"name": "Suresh Gara", "age": 27, "email": "suresh.g@comakeit.com"},
