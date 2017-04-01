@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PatientService } from './patient.service'
 
 @Component({
@@ -7,7 +7,7 @@ import { PatientService } from './patient.service'
     styleUrls: ['./app.component.css'],
     providers: [ PatientService ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     title = 'app works!';
     user = {};
@@ -15,8 +15,13 @@ export class AppComponent {
     users = [];
     families = [];
 
-    constructor(_patientService: PatientService){
-        _patientService.getUserDetails().subscribe(resData => this.users = resData);
+    constructor(private _patientService: PatientService){}
+
+    ngOnInit(){
+        this._patientService.getUserDetails().subscribe(resData => this.users = resData);
+        this._patientService.getFamilies().subscribe(resData => this.families = resData.results);
+
+        console.log(this.families);
     }
 
     // Edit user details

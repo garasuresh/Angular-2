@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Response } from '@angular/http';
+import {Http, Response, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 
@@ -7,10 +7,22 @@ import 'rxjs/add/operator/map';
 export class PatientService {
 
   private _url: string = 'apiData/employees.json';
+  private _headers = {
+        'X-Parse-Application-Id': "KdJjWiZBfWvlJ6X1vhT5HmgR2xM35lba99ZxZghC",
+        'X-Parse-REST-API-Key': "ZZLDfBFe7eSmvKAKWa5Ve3Nq3CR86nBB5u53Jx43",
+        'Content-Type': 'application/json'
+  };
+
   constructor(private _http: Http){}
 
   getUserDetails(){
     return this._http.get(this._url).map((res:Response) => res.json());
+  }
+
+  getFamilies() {
+    let headers = new Headers(this._headers);
+    let familiesUrl = "https://parseapi.back4app.com/classes/families";
+    return this._http.get(familiesUrl, {headers: headers}).map((res:Response) => res.json());
   }
 
   listPatients(){
